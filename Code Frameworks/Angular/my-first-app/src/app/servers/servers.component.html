@@ -1,0 +1,40 @@
+<label>Server Name</label>
+<input 
+    type='text'
+    class='form-control'
+    [(ngModel)]='serverName'>
+<button 
+class="btn btn-primary" 
+[disabled]="!allowNewServer"
+(click)='onCreateServer()'>
+Add Server</button>
+<p *ngIf='serverCreated; else noServer'>{{serverCreationStatus}}</p>
+<ng-template #noServer>
+    <p > No server created</p>
+</ng-template>
+
+<app-server></app-server>
+<app-server></app-server>
+
+<hr>
+
+<label>Username</label>
+<input 
+    type='text'
+    class='form-control'
+    [(ngModel)]='userName'>
+<p>{{userName}}</p>
+<button 
+class="btn btn-primary" 
+[disabled]="!userName"
+(click)='resetName()'>
+Reset Name</button>
+
+<button 
+class="btn btn-primary" 
+(click)='onButtonPress()'>
+Display Details</button>
+
+<p *ngIf='showSecret' >Secret Password = TUNA</p>
+
+<p *ngFor="let count of buttonCount"  [ngStyle]='{backgroundColor: count >= 5 ? "blue" : "transparent"}' [ngClass]='{"blueBack": count >= 5}' >Button pressed: {{count}} Times</p>

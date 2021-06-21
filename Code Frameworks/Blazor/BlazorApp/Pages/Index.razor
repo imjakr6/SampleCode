@@ -1,0 +1,177 @@
+@page "/"
+<div class="control-section e-tab-section">
+<div id="ConactInfo">
+                        <h4 class="border-top">Public Contact Information</h4>
+                        <p class="mt-3 mb-0 ">Phone: 204-123-4567 ?? "None Specified")</p>
+                        <p class="mt-0 mb-0">Email: someemail@Environ.com ?? "None Specified")</p>
+                        <p class="mt-0 mb-2">Web:&nbsp; someweburl.com ?? "None Specified")</p>
+                        @* <div class="d-inline-block mt-2">
+                            <MailingLabel contentText="@LabelContent" />
+                        </div> *@
+                    </div>
+
+                    <div id="Details" class="row">
+                        <div id="Unit Info" class="col">
+                            <ShowRow anObjectOfAClass="@Lodge_Unit" />
+                        </div>
+                        <div id="LastAR" class="col-sm-4">
+                            <ShowRow anObjectOfAClass="@LastAR" />
+                            <div ID="GERVisit">
+                                <SfDatePicker TValue="DateTime?" Placeholder="Last GER Visit..." Format="yyyy-MM-dd" FloatLabelType="@FloatLabelType.Always"
+                                              @bind-Value="@lastGerVisit" Readonly="true">
+                                </SfDatePicker>
+                            </div>
+                            <div ID="GERAnnivVisit">
+                                <SfDatePicker TValue="DateTime?" Placeholder="GerAnnivVisitDate..." Format="yyyy-MM-dd" FloatLabelType="@FloatLabelType.Always"
+                                              @bind-Value="@Lodge_Unit.GERAnnivVisitDate" Readonly="true">
+                                </SfDatePicker>
+                            </div>
+                        </div>
+                    </div>
+</div>
+
+
+@* <div class="control-section e-tab-section">
+    <SfTab @ref="Tab" ID="LodgeTab" Height="auto">
+        <TabAnimationSettings>
+            <TabAnimationPrevious Effect="@AnimationEffect.None" />
+            <TabAnimationNext Effect="@AnimationEffect.None" />
+        </TabAnimationSettings>
+        <TabItems>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="General"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <div id="ConactInfo">
+                        <h4 class="border-top">Public Contact Information</h4>
+                        <p class="mt-3 mb-0 ">Phone: 204-123-4567 ?? "None Specified")</p>
+                        <p class="mt-0 mb-0">Email: someemail@Environ.com ?? "None Specified")</p>
+                        <p class="mt-0 mb-2">Web:&nbsp; someweburl.com ?? "None Specified")</p>
+                        <div class="d-inline-block mt-2">
+                            <MailingLabel contentText="@LabelContent" />
+                        </div>
+                    </div>
+                    <div ID="FeeInfo" class="mt-3">
+                        <SfDatePicker TValue="DateTime?" Placeholder="NMF Paid To" Format="yyyy-MM-dd" FloatLabelType="@FloatLabelType.Always"
+                                      @bind-Value="@Lodge_Unit.NMFPaidTo">
+                        </SfDatePicker>
+                        <label class="col-sm-6 control-label mt-3" style="text-align: left;font-size: 14px;">
+                            NMF Notes
+                        </label>
+                        <SfInPlaceEditor Mode="@Mode" Type="Syncfusion.Blazor.InPlaceEditor.InputType.RichTextEditor"
+                                         EditableOn="EditableType.EditIconClick" SubmitOnEnter="false"
+                                         EmptyText="Enter notes.." Name="RTE" @bind-Value="@(Lodge_Unit.NMFNotes)">
+                            <EditorComponent>
+                                <SfRichTextEditor @bind-Value="@(Lodge_Unit.NMFNotes)" Placeholder="Enter Notes...">
+                                    <ChildContent>
+                                        <RichTextEditorToolbarSettings Items="@Items" EnableFloating="false" />
+                                    </ChildContent>
+                                </SfRichTextEditor>
+                            </EditorComponent>
+                            <InPlaceEditorPopupSettings Width="50%"></InPlaceEditorPopupSettings>
+                        </SfInPlaceEditor>
+                    </div>
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="Details"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <div id="Details" class="row">
+                        <div id="Unit Info" class="col">
+                            <ShowRow anObjectOfAClass="@Lodge_Unit" />
+                        </div>
+                        <div id="LastAR" class="col-sm-4">
+                            <ShowRow anObjectOfAClass="@LastAR" />
+                            <div ID="GERVisit">
+                                <SfDatePicker TValue="DateTime?" Placeholder="Last GER Visit..." Format="yyyy-MM-dd" FloatLabelType="@FloatLabelType.Always"
+                                              @bind-Value="@lastGerVisit" Readonly="true">
+                                </SfDatePicker>
+                            </div>
+                            <div ID="GERAnnivVisit">
+                                <SfDatePicker TValue="DateTime?" Placeholder="GerAnnivVisitDate..." Format="yyyy-MM-dd" FloatLabelType="@FloatLabelType.Always"
+                                              @bind-Value="@Lodge_Unit.GERAnnivVisitDate" Readonly="true">
+                                </SfDatePicker>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="Members"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <h4>Membership</h4>
+                    <AffiliationGrid ActiveOnly="@showActiveOnly" RecordType="M" unitId="@unitID" />
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="Officers"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <h4>Lodge Officers</h4>
+                    <AffiliationGrid ActiveOnly="@showActiveOnly" RecordType="O" unitId="@unitID" />
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="Club"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <ComingSoon FixedColor="@(((DateTime.Now.Minute) % 8) + 1)" />
+                    <!-- New Tab -->
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <HeaderTemplate>
+                    <div id="RVHeader">
+                        @if (LodgeRE is null)
+                        {
+                            <span class="text-secondary"><em>Real Estate</em></span>
+                        }
+                        else
+                        {
+                            <span>Real Estate</span>
+                        }
+                    </div>
+                </HeaderTemplate>
+                <ContentTemplate>
+                    <ShowRow anObjectOfAClass="@LodgeRE"></ShowRow>
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <HeaderTemplate>
+                    <div id="RVHeader">
+                        @if (LodgeRV is null)
+                        {
+                            <span class="text-secondary"><em>RV Info</em></span>
+                        }
+                        else
+                        {
+                            <span>RV Info</span>
+                        }
+                    </div>
+                </HeaderTemplate>
+                <ContentTemplate>
+                    <ShowRow anObjectOfAClass="@LodgeRV"></ShowRow>
+                </ContentTemplate>
+            </TabItem>
+
+            <TabItem>
+                <HeaderTemplate>
+                    <div id="ARHeader">
+                        <span>Annual Reports</span>
+                        <span class="badge badge-pill badge-info" style="position:relative; top:-2px;">@ARCount</span>
+                    </div>
+                </HeaderTemplate>
+                <ContentTemplate>
+                    <ReportGrid unitID="@unitID" />
+                </ContentTemplate>
+            </TabItem>
+        </TabItems>
+    </SfTab>
+</div> *@
